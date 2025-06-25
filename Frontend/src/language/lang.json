@@ -1,0 +1,48 @@
+{
+  "login": {
+    "title": {
+      "zh": "SCMNS 内部系统",
+      "en": "SCMNS Internal System"
+    },
+    "subtitle": {
+      "zh": "专注于承包商合规服务的专业伙伴",
+      "en": "Your Trusted Partner in Contractor Compliance"
+    },
+    "empty": {
+      "zh": "请输入账号与密码",
+      "en": "Input username and password"
+    },
+    "error": {
+      "zh": "账号或密码错误",
+      "en": "Invalid username or password"
+    },
+    "username": {
+      "zh": "账号",
+      "en": "Username"
+    },
+    "usernamePlaceholder": {
+      "zh": "输入账号",
+      "en": "Enter username"
+    },
+    "password": {
+      "zh": "密码",
+      "en": "Password"
+    },
+    "passwordPlaceholder": {
+      "zh": "输入密码",
+      "en": "Enter password"
+    },
+    "submit": {
+      "zh": "登录后台",
+      "en": "Login Panel"
+    },
+    "slogan1": {
+      "zh": "让合规变得简单",
+      "en": "Compliance Made Simple"
+    },
+    "slogan2": {
+      "zh": "您值得信赖的一站式顾问伙伴",
+      "en": "Your One-Stop Trusted Advisor"
+    }
+  }
+}
