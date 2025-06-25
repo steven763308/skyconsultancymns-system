@@ -1,0 +1,13 @@
+{
+  "rootDirectory": "frontend",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/"
+    }
+  ]
+}
