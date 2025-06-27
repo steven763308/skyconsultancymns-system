@@ -27,6 +27,19 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const isCollapsed = !isPinned && !isHovered;
   const sidebarWidth = isCollapsed ? 64 : 256;
 
+  //check login token
+  useEffect(() => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("sky_token="))
+      ?.split("=")[1];
+
+    if (!token) {
+      router.replace("/"); // 无 token，重定向回登录页
+    }
+  }, []);
+
+
   // 检查是否是移动设备
   useEffect(() => {
     const handleResize = () => {

@@ -2,60 +2,75 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import lang from "@/language/lang.json"; //switch language file
-import { Globe, Eye, EyeOff } from "lucide-react"; //globe language icon library
+import lang from "@/language/lang.json"; // 语言包
+import { Globe, Eye, EyeOff } from "lucide-react"; // 图标库
 
 export default function LoginPage() {
   const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [validationError, setValidationError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); //password harsh display
+  const [showPassword, setShowPassword] = useState(false);
+  const [language, setLanguage] = useState<"zh" | "en">("zh");
 
-  //language.json
-  const [language, setLanguage] = useState<"zh"|"en">("zh");
   const t = lang.login;
-  
-  useEffect(() => {
-    //token validation
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("sky_token="))?.split("=")[1];
 
+  // ✅ 封装函数：从 cookie 中获取 JWT
+  const getTokenFromCookie = () => {
+    return document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("sky_token="))
+      ?.split("=")[1];
+  };
+
+  // ✅ 页面加载时：检查 token，若存在则跳转到 dashboard
+  useEffect(() => {
+    const token = getTokenFromCookie();
     if (token) {
       router.push("/dashboard");
     }
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  // ✅ 登录提交逻辑
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 清空所有错误提示
     setError("");
     setValidationError("");
 
-    // 检查账号和密码是否填写
     if (!username || !password) {
-      setValidationError("请输入账号与密码");
+      setValidationError(t.empty[language]); // 账号或密码不能为空
       return;
     }
 
-    // 登录验证
-    if (username.toLowerCase() === "steven" && password === "scmns0901") {
-      const expires = new Date();
-      expires.setDate(expires.getDate() + 7);
+    try {
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-      //mock token (Future connect JWT)
-      const mockToken = "abc.def.ghi";
-      document.cookie = `sky_token=${mockToken}; path=/; expires=${expires.toUTCString()}`;
+      const data = await res.json();
 
-      router.push("/dashboard");
-    } else {
-      setError("账号或密码错误");
-      //clear field
-      setUsername("");
-      setPassword("");
+      if (res.ok && data.token) {
+        // ✅ 设置 token 到 cookie，有效期 7 天
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 7);
+        document.cookie = `sky_token=${data.token}; path=/; expires=${expires.toUTCString()}`;
+
+        router.push("/dashboard");
+      } else {
+        setError(t.error[language] || "账号或密码错误");
+        setUsername("");
+        setPassword("");
+      }
+    } catch (err) {
+      console.error("登录失败:", err);
+      setError("⚠️ 服务器连接失败，请稍后再试");
     }
   };
 
