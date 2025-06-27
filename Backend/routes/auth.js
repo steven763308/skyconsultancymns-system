@@ -9,50 +9,87 @@ const verifyToken = require('../middleware/verifyToken');
 // 初始化 PostgreSQL 连接池
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false } // Supabase 需要加上
+  ssl: { rejectUnauthorized: false },
 });
 
-// 登录接口
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+// ✔ 注册
+router.post('/register', async (req, res) => {
+  const username = req.body.username?.trim().toLowerCase();
+  const password = req.body.password;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: '用户名和密码不能为空' });
+  }
 
   try {
-    console.log('开始连接数据库...');
+    const checkUser = await pool.query('SELECT id FROM "user" WHERE username = $1', [username]);
+    if (checkUser.rows.length > 0) {
+      return res.status(400).json({ message: '用户名已存在，请使用其他用户名' });
+    }
 
-    // 查询用户
-    const result = await pool.query('SELECT * FROM "user" WHERE username = $1', [username]);
-    console.log('连接数据库成功，查询结果：', result.rows);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, hashedPassword]);
+
+    res.status(201).json({ message: '注册成功' });
+  } catch (error) {
+    console.error('注册错误:', error.message);
+    res.status(500).json({ message: '服务器错误，请稍后再试' });
+  }
+});
+
+// ✔ 登录
+router.post('/login', async (req, res) => {
+  const username = req.body.username?.trim().toLowerCase();
+  const password = req.body.password;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: '请输入用户名和密码' });
+  }
+
+  try {
+    const result = await pool.query(
+      'SELECT id, username, password FROM "user" WHERE username = $1',
+      [username]
+    );
 
     if (result.rows.length === 0) {
-      console.log('用户名不存在');
       return res.status(400).json({ message: '用户名不存在' });
     }
 
     const user = result.rows[0];
-
-    // 验证密码
     const match = await bcrypt.compare(password, user.password);
+
     if (!match) {
-      console.log('密码错误');
       return res.status(401).json({ message: '密码错误' });
     }
 
-    // 生成 Token
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
-      expiresIn: '2h'
-    });
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '2h' }
+    );
 
-    console.log('登录成功，返回 Token');
     res.json({ token });
   } catch (error) {
-    console.error('登录错误:', error);
-    res.status(500).json({ message: '服务器错误' });
+    console.error('登录错误:', error.message);
+    res.status(500).json({ message: '服务器错误，请稍后再试' });
   }
 });
 
-// ✔️ 受保护接口
+// ✔ 受保护接口
 router.get('/protected', verifyToken, (req, res) => {
-  res.json({ message: '访问成功', user: req.user });
+  res.json({
+    message: '受保护内容访问成功',
+    user: req.user,
+  });
+});
+
+// ✅ 新增：验证 token 是否有效（供前端用来检测登录状态）
+router.get('/verify-token', verifyToken, (req, res) => {
+  res.status(200).json({
+    valid: true,
+    user: req.user,
+  });
 });
 
 module.exports = router;
