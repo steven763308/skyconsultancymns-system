@@ -39,7 +39,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     }
   }, []);
 
-
   // 检查是否是移动设备
   useEffect(() => {
     const handleResize = () => {
@@ -54,7 +53,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   const navLinks = [
     { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={18} /> },
-    { label: "Draft", href: "/dashboard/draftzone", icon: <Home size={18} /> },
     { label: "Services", href: "/dashboard/service", icon: <Monitor size={18} /> },
     { label: "用户管理", href: "/dashboard/user", icon: <UserCog size={18} /> },
     { label: "设定", href: "/dashboard/settings", icon: <Bolt size={18} /> },
@@ -101,12 +99,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <Link
             key={link.href}
             href={link.href}
-            className={`py-2 px-2 rounded mb-2 hover:bg-gray-700 flex items-center transition-all duration-200 ${
+            className={`py-3 px-4 rounded-lg mb-2 hover:bg-gray-700 flex items-center transition-all duration-200 ${
               pathname === link.href ? "bg-gray-700" : ""
             }`}
           >
-            <span className="mr-2">{link.icon}</span>
-            {!isCollapsed && (!isMobile || isSidebarOpen) && <span>{link.label}</span>}
+            <span className="mr-3 text-lg">{link.icon}</span>
+            {!isCollapsed && (!isMobile || isSidebarOpen) && (
+              <span className="text-base font-medium">{link.label}</span>
+            )}
           </Link>
         ))}
       </aside>
