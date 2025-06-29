@@ -1,5 +1,12 @@
 require('dotenv').config();
 
+console.log("连接信息：", {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+});
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');

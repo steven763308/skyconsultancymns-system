@@ -2,12 +2,12 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const User = sequelize.define(
-    'User',
+    'user',
     {
       scwid: {
         type: DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
+        allowNull: true,
         unique: true,
         comment: '公司专属员工编号，例如 SCWID-001',
       },
@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      tableName: 'users',
+      tableName: 'user',
       timestamps: true, // 自动添加 createdAt 和 updatedAt 字段
       underscored: false,
     }
