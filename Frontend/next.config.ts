@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    appDir: true, // ✅ 告诉 Next.js 我用了 app router 结构
+    //appDir: true, // ✅ 告诉 Next.js 我用了 app router 结构
   },
 };
 
