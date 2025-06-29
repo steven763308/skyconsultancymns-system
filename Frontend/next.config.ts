@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // ✅ 生产环境忽略 ESLint 报错，先保证顺利部署
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  experimental: {
+    appDir: true, // ✅ 告诉 Next.js 我用了 app router 结构
   },
 };
 
