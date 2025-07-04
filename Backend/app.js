@@ -20,7 +20,10 @@ const app = express();
 
 // ✅ CORS 设置：允许前端访问（如 React 项目）
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: [
+    "http://localhost:3000",
+    "https://skyconsultancymns-system.vercel.app/"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true

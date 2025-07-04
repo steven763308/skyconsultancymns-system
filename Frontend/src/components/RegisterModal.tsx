@@ -57,7 +57,9 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
     if (!validateForm()) return;
 
     try {
-      const res = await fetch("/api/users", {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+      const res = await fetch(`${baseUrl}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
