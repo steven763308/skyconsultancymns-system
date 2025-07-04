@@ -55,6 +55,14 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ username, password }),
       });
+  
+      let result;
+      try {
+        result = await res.json();
+      } catch (err) {
+        console.error("❌ 返回内容不是 JSON", err);
+      }
+
 
       const data = await res.json();
 
