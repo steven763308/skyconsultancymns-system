@@ -56,6 +56,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const navLinks = [
     { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={18} /> },
     { label: "Services", href: "/dashboard/service", icon: <Monitor size={18} /> },
+    { label: "Account", href: "/dashboard/account", icon: <Bolt size={18} /> },
     { label: "用户管理", href: "/dashboard/user", icon: <UserCog size={18} /> },
     { label: "设定", href: "/dashboard/settings", icon: <Bolt size={18} /> },
   ];
