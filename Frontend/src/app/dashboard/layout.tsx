@@ -13,6 +13,7 @@ import {
   UserCog,
   Bolt,
   Menu,
+  BookOpen,
 } from "lucide-react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -56,6 +57,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const navLinks = [
     { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={18} /> },
     { label: "Services", href: "/dashboard/service", icon: <Monitor size={18} /> },
+    { label: "Accounting", href: "/dashboard/accounting", icon: <BookOpen size={18} /> },
     { label: "用户管理", href: "/dashboard/user", icon: <UserCog size={18} /> },
     { label: "设定", href: "/dashboard/settings", icon: <Bolt size={18} /> },
   ];
@@ -101,13 +103,22 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <Link
             key={link.href}
             href={link.href}
-            className={`py-3 px-4 rounded-lg mb-2 hover:bg-gray-700 flex items-center transition-all duration-200 ${
-              pathname === link.href ? "bg-gray-700" : ""
+            className={`group flex items-center justify-center lg:justify-start mb-3 transition-all ${
+              pathname === link.href
+                ? "bg-blue-600 text-white"
+                : "text-gray-300 hover:bg-gray-700 hover:text-white"
+            } ${
+              isCollapsed && !isMobile
+                ? "p-3 rounded-full" // collapsed 状态下用圆形按钮
+                : "px-4 py-3 rounded-lg" // full 状态下用方形按钮
             }`}
           >
-            <span className="mr-3 text-lg">{link.icon}</span>
+            {/* Icon 区块 */}
+            <span className="text-xl">{link.icon}</span>
+
+            {/* Label 只在展开状态下显示 */}
             {!isCollapsed && (!isMobile || isSidebarOpen) && (
-              <span className="text-base font-medium">{link.label}</span>
+              <span className="ml-3 text-base font-medium">{link.label}</span>
             )}
           </Link>
         ))}
