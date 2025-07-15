@@ -1,21 +1,20 @@
 // dashboard/page.tsx
 
 "use client";
-//import { useEffect } from "react";
-//import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function DashboardHome() {
-  /*
   const router = useRouter();
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("sky_logged_in");
+    console.log("🚨 当前登录状态:", loggedIn);
     if (loggedIn !== "true") {
       router.push("/");
     }
   }, []);
-  */
 
   return (
     <main>
