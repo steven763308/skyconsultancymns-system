@@ -47,8 +47,9 @@ export default function LoginPage() {
 
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      console.log("✅ API URL:", process.env.NEXT_PUBLIC_API_URL);
 
-      const res = await fetch(`${baseUrl}/`, {
+      const res = await fetch(`${baseUrl}/user/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
