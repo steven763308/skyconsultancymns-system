@@ -33,7 +33,7 @@ export default function LoginPage() {
     }
   }, []);
 
-  // ✅ 登录提交逻辑
+  // ✅ 登录提交逻辑（已修复重复读取 JSON 的问题）
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -47,7 +47,7 @@ export default function LoginPage() {
 
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      console.log("✅ API URL:", process.env.NEXT_PUBLIC_API_URL);
+      console.log("✅ API URL:", baseUrl);
 
       const res = await fetch(`${baseUrl}/user/`, {
         method: "POST",
@@ -56,18 +56,17 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ username, password }),
       });
-  
-      let result;
+
+      let data = null;
       try {
-        result = await res.json();
+        data = await res.json(); // ✅ 只读取一次
       } catch (err) {
         console.error("❌ 返回内容不是 JSON", err);
+        setError("⚠️ 服务器返回格式错误");
+        return;
       }
 
-
-      const data = await res.json();
-
-      if (res.ok && data.token) {
+      if (res.ok && data?.token) {
         // ✅ 设置 token 到 cookie，有效期 7 天
         const expires = new Date();
         expires.setDate(expires.getDate() + 7);

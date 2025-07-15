@@ -22,7 +22,8 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://skyconsultancymns-system.vercel.app/"
+    "https://skyconsultancymns-system.vercel.app",
+    "https://admin.skyconsultancymns.com"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
