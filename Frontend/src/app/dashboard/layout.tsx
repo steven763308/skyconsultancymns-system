@@ -7,7 +7,6 @@ import {
   Pin,
   PinOff,
   LogOut,
-  Home,
   Monitor,
   LayoutDashboard,
   UserCog,
@@ -24,26 +23,34 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false); // 新增状态：身份验证通过
+  const [authChecked, setAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const isCollapsed = !isPinned && !isHovered;
   const sidebarWidth = isCollapsed ? 64 : 256;
 
-  // ✅ 检查登录 token（加入 authChecked）
+  // ✅ 登录验证逻辑（避免闪屏）
   useEffect(() => {
     const token = document.cookie
       .split("; ")
       .find((row) => row.startsWith("sky_token="))
       ?.split("=")[1];
 
-    if (!token) {
-      router.replace("/");
+    if (token) {
+      setIsAuthenticated(true);
     } else {
-      setAuthChecked(true);
+      setIsAuthenticated(false);
     }
+    setAuthChecked(true);
   }, []);
 
-  // 检查是否是移动设备
+  useEffect(() => {
+    if (authChecked && !isAuthenticated) {
+      router.replace("/");
+    }
+  }, [authChecked, isAuthenticated]);
+
+  // ✅ 检查是否是移动设备
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
@@ -63,7 +70,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { label: "设定", href: "/dashboard/settings", icon: <Bolt size={18} /> },
   ];
 
-  // 未完成身份验证前不渲染页面
   if (!authChecked) return null;
 
   return (
@@ -84,7 +90,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         onMouseEnter={() => !isPinned && !isMobile && setIsHovered(true)}
         onMouseLeave={() => !isPinned && !isMobile && setIsHovered(false)}
       >
-        {/* Header */}
         <div className="flex justify-between items-center mb-6">
           {!isCollapsed && !isMobile && (
             <h2 className="text-lg font-bold transition-opacity duration-200">
@@ -102,7 +107,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           )}
         </div>
 
-        {/* Nav links */}
         {navLinks.map((link) => (
           <Link
             key={link.href}
@@ -125,7 +129,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         ))}
       </aside>
 
-      {/* ✅ 主内容区域（自动偏移） */}
       <div
         className="flex flex-col min-h-screen transition-all duration-300 ease-in-out"
         style={{ marginLeft: !isMobile ? `${sidebarWidth}px` : "0" }}
