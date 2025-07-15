@@ -7,6 +7,7 @@ import {
   Pin,
   PinOff,
   LogOut,
+  Home,
   Monitor,
   LayoutDashboard,
   UserCog,
@@ -23,39 +24,28 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const isCollapsed = !isPinned && !isHovered;
   const sidebarWidth = isCollapsed ? 64 : 256;
 
-  // ✅ 登录验证逻辑（避免闪屏）
+  //check login token
   useEffect(() => {
     const token = document.cookie
       .split("; ")
       .find((row) => row.startsWith("sky_token="))
       ?.split("=")[1];
 
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
+    if (!token) {
+      router.replace("/"); // 无 token，重定向回登录页
     }
-    setAuthChecked(true);
   }, []);
 
-  useEffect(() => {
-    if (authChecked && !isAuthenticated) {
-      router.replace("/");
-    }
-  }, [authChecked, isAuthenticated]);
-
-  // ✅ 检查是否是移动设备
+  // 检查是否是移动设备
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      if (!mobile) setIsSidebarOpen(false);
+      if (!mobile) setIsSidebarOpen(false); // desktop 自动关闭 mobile sidebar
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -69,8 +59,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { label: "用户管理", href: "/dashboard/user", icon: <UserCog size={18} /> },
     { label: "设定", href: "/dashboard/settings", icon: <Bolt size={18} /> },
   ];
-
-  if (!authChecked) return null;
 
   return (
     <div className="min-h-screen">
@@ -90,6 +78,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         onMouseEnter={() => !isPinned && !isMobile && setIsHovered(true)}
         onMouseLeave={() => !isPinned && !isMobile && setIsHovered(false)}
       >
+        {/* Header */}
         <div className="flex justify-between items-center mb-6">
           {!isCollapsed && !isMobile && (
             <h2 className="text-lg font-bold transition-opacity duration-200">
@@ -107,6 +96,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           )}
         </div>
 
+        {/* Nav links */}
         {navLinks.map((link) => (
           <Link
             key={link.href}
@@ -117,11 +107,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 : "text-gray-300 hover:bg-gray-700 hover:text-white"
             } ${
               isCollapsed && !isMobile
-                ? "p-3 rounded-full"
-                : "px-4 py-3 rounded-lg"
+                ? "p-3 rounded-full" // collapsed 状态下用圆形按钮
+                : "px-4 py-3 rounded-lg" // full 状态下用方形按钮
             }`}
           >
+            {/* Icon 区块 */}
             <span className="text-xl">{link.icon}</span>
+
+            {/* Label 只在展开状态下显示 */}
             {!isCollapsed && (!isMobile || isSidebarOpen) && (
               <span className="ml-3 text-base font-medium">{link.label}</span>
             )}
@@ -129,12 +122,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         ))}
       </aside>
 
+      {/* ✅ 主内容区域（自动偏移） */}
       <div
         className="flex flex-col min-h-screen transition-all duration-300 ease-in-out"
         style={{ marginLeft: !isMobile ? `${sidebarWidth}px` : "0" }}
       >
+        {/* Topbar */}
         <header className="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-30">
           <div className="flex items-center gap-2">
+            {/* ✅ 汉堡按钮（仅在 mobile 时显示） */}
             {isMobile && (
               <button
                 className="text-gray-800 hover:text-black"
@@ -146,9 +142,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <h1 className="text-xl font-semibold">后台系统</h1>
           </div>
           <div className="flex items-center gap-2">
+            {/* 🔁 Language Switch Placeholder */}
             <button className="bg-gray-200 text-sm px-3 py-1 rounded hover:bg-gray-300">
               中 / EN
             </button>
+            {/* ✅ 登出 */}
             <button
               className="bg-black text-white px-4 py-2 rounded flex items-center gap-2"
               onClick={() => {
@@ -163,6 +161,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </div>
         </header>
 
+        {/* 页面内容 */}
         <main className="p-6 bg-gray-50 flex-1">{children}</main>
       </div>
     </div>
