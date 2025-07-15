@@ -8,6 +8,7 @@ import Image from "next/image";
 export default function DashboardHome() {
   const router = useRouter();
 
+  /*
   useEffect(() => {
     const loggedIn = localStorage.getItem("sky_logged_in");
     console.log("🚨 当前登录状态:", loggedIn);
@@ -15,6 +16,7 @@ export default function DashboardHome() {
       router.push("/");
     }
   }, []);
+*/
 
   return (
     <main>
