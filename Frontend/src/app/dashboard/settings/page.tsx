@@ -1,8 +1,13 @@
 export default function SettingPage() {
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">系统设定</h2>
-      <p className="text-gray-600 mb-6">您可以在这里修改账户信息、偏好设置等。</p>
+    <main className="p-8">
+      {/* 页面标题与简介 */}
+      <h1 className="text-3xl font-bold text-gray-800 mb-5">
+        ⚡️ 系统设定 System Setting
+      </h1>
+      <p className="text-gray-600 mb-6">
+        您可以在这里修改账户信息、偏好设置等。
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-4 border rounded-lg shadow bg-white">
@@ -15,6 +20,6 @@ export default function SettingPage() {
           <p className="text-sm text-gray-500">设置语言、主题等系统选项</p>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

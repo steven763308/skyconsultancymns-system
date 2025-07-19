@@ -27,11 +27,14 @@ export default function ProjectManagementPage() {
   ]);
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">📁 项目管理 Project Management</h1>
-        <p className="text-gray-600 mt-1">在这里你可以查看、管理你的项目进度。</p>
-      </div>
+    <main className="p-8">
+      {/* 页面标题与简介 */}
+      <h1 className="text-3xl font-bold text-gray-800 mb-5">
+        📁 项目管理 Project Management
+      </h1>
+      <p className="text-gray-600 mb-6">
+        在这里你可以查看、管理你的项目进度。
+      </p>
 
       {/* 新增项目按钮 */}
       <div className="mb-4">
@@ -71,6 +74,6 @@ export default function ProjectManagementPage() {
           </tbody>
         </table>
       )}
-    </div>
+    </main>
   );
 }

@@ -105,7 +105,7 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/30">
+    <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center">
       <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-lg border border-gray-300 bg-white p-6 shadow-xl animate-fade-in">
         <button onClick={onClose} className="absolute top-4 right-4 rounded-full bg-gray-200 hover:bg-red-500 hover:text-white transition p-1">
           <XMarkIcon className="h-5 w-5" />

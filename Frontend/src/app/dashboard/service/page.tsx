@@ -53,9 +53,13 @@ const tools = {
 export default function Services() {
   return (
     <main className="p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-10">
+      {/* 页面标题与简介 */}
+      <h1 className="text-3xl font-bold text-gray-800 mb-5">
         🛠️ Sky Consultancy 工具中心
       </h1>
+      <p className="text-gray-600 mb-6">
+        管理报价单、发票与客户付款记录，一站式查看 Sky Consultancy 的财务相关事项。
+      </p>
 
       {/* Government Portal */}
       <Section title="📂 Government Portals" data={tools.government} />
