@@ -1,3 +1,4 @@
+// components/RegisterModal.tsx
 "use client";
 
 import { useState } from "react";
@@ -37,7 +38,6 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
       password: formData.password.length >= 6 ? "" : "密码至少需要6个字符",
       confirmPassword: formData.confirmPassword === formData.password ? "" : "两次密码输入不一致"
     };
-
     setErrors(newErrors);
     return Object.values(newErrors).every((err) => err === "");
   };
@@ -64,7 +64,6 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
 
   const handleRegister = async () => {
     if (!validateForm()) return;
-
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
       const formPayload = new FormData();
@@ -82,18 +81,9 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
       alert("用户注册成功！");
       onClose();
       setFormData({
-        name: "",
-        phone: "",
-        position: "",
-        email: "",
-        username: "",
-        password: "",
-        confirmPassword: "",
-        gender: "",
-        dob: "",
-        photo: null,
-        bio: "",
-        joinDate: ""
+        name: "", phone: "", position: "", email: "",
+        username: "", password: "", confirmPassword: "",
+        gender: "", dob: "", photo: null, bio: "", joinDate: ""
       });
       setPhotoPreview(null);
       setErrors({});
@@ -106,12 +96,17 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center">
-      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-lg border border-gray-300 bg-white p-6 shadow-xl animate-fade-in">
-        <button onClick={onClose} className="absolute top-4 right-4 rounded-full bg-gray-200 hover:bg-red-500 hover:text-white transition p-1">
+      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto custom-scroll rounded-lg border border-gray-300 bg-white p-6 shadow-xl animate-fade-in">
+
+        {/* ❌ 关闭按钮 */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 rounded-full bg-gray-200 hover:bg-red-500 hover:text-white transition p-1"
+        >
           <XMarkIcon className="h-5 w-5" />
         </button>
-        <h2 className="text-2xl font-bold text-center mb-4">注册新用户</h2>
 
+        {/* 👤 头像上传 */}
         <div className="flex justify-center mb-6">
           <div className="relative">
             {photoPreview ? (
@@ -130,6 +125,7 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
           </div>
         </div>
 
+        {/* 📌 个人资料 */}
         <h3 className="text-lg font-semibold text-center mb-2">个人资料</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField label="名字" name="name" value={formData.name} onChange={handleInputChange} error={errors.name} />
@@ -148,10 +144,17 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
           </div>
           <div className="md:col-span-2">
             <label className="block mb-1 font-medium">简介</label>
-            <textarea name="bio" value={formData.bio} onChange={handleInputChange} rows={3} className="w-full px-3 py-2 border rounded"></textarea>
+            <textarea
+              name="bio"
+              value={formData.bio}
+              onChange={handleInputChange}
+              rows={3}
+              className="w-full px-3 py-2 border rounded"
+            ></textarea>
           </div>
         </div>
 
+        {/* 🏢 公司账户信息 */}
         <h3 className="text-lg font-semibold text-center mt-8 mb-2">公司职位与账户信息</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField label="邮件地址" name="email" type="email" value={formData.email} onChange={handleInputChange} error={errors.email} />
@@ -162,6 +165,7 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
           <InputField label="确认密码" name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} />
         </div>
 
+        {/* ✅ 提交按钮 */}
         <button onClick={handleRegister} className="mt-6 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
           注册用户
         </button>
@@ -170,6 +174,8 @@ export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   );
 }
 
+
+// ⬇️ 可复用 InputField
 function InputField({ label, name, type = "text", value, onChange, error }: any) {
   return (
     <div>

@@ -6,15 +6,21 @@ import { useEffect } from "react";
 export default function DashboardHome() {
   const router = useRouter();
 
+  //find token
+  const getTokenFromCookie = () => {
+    return document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("sky_token="))
+      ?.split("=")[1];
+  };
+
   // ✅ 登录验证逻辑（可开启）
-  /*
   useEffect(() => {
-    const loggedIn = localStorage.getItem("sky_logged_in");
-    if (loggedIn !== "true") {
-      router.push("/");
+    const token = getTokenFromCookie();
+    if (!token) {
+      router.push("/"); // 没有token就跳回登录
     }
   }, []);
-  */
 
   return (
     <main className="p-8">
