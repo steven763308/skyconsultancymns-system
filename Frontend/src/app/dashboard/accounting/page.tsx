@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 export default function AccountingPanel() {
   return (
@@ -17,56 +16,50 @@ export default function AccountingPanel() {
         {/* Quotation 报价单 */}
         <Card
           href="/dashboard/accounting/quotation"
+          emoji="📄"
           title="Quotation 报价单"
           description="创建与管理客户报价单"
-          imgSrc="/image/quotationLogo.png"
         />
 
         {/* Invoice 发票 */}
         <Card
           href="/dashboard/accounting/invoice"
+          emoji="🧾"
           title="Invoice 发票"
           description="生成与管理销售发票"
-          imgSrc="/image/invoiceLogo.png"
         />
 
         {/* Payment Tracking */}
         <Card
           href="/dashboard/accounting/paymenttrack"
+          emoji="💰"
           title="Payment Tracking"
           description="追踪客户付款状态与进度"
-          imgSrc="/image/paymentTrack.png"
         />
       </div>
     </main>
   );
 }
 
-// ✅ 可复用卡片组件
+// ✅ 可复用卡片组件（使用 Emoji 图标）
 function Card({
   href,
+  emoji,
   title,
   description,
-  imgSrc,
 }: {
   href: string;
+  emoji: string;
   title: string;
   description: string;
-  imgSrc: string;
 }) {
   return (
     <Link
       href={href}
       className="bg-white p-6 rounded-lg shadow hover:shadow-md transition flex flex-col items-center text-center"
     >
-      <div className="w-20 h-20 rounded-full overflow-hidden mb-4 border border-gray-200">
-        <Image
-          src={imgSrc}
-          alt={title}
-          width={80}
-          height={80}
-          className="object-cover w-full h-full"
-        />
+      <div className="w-20 h-20 rounded-full flex items-center justify-center bg-gray-100 text-3xl mb-4 border border-gray-200">
+        {emoji}
       </div>
       <h2 className="text-xl font-semibold mb-2">{title}</h2>
       <p className="text-sm text-gray-600">{description}</p>
