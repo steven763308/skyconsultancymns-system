@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-//import html2pdf from "html2pdf.js";
+import html2pdf from "html2pdf.js";
 import DocumentTable from "@/components/DocumentTable";
 import { FileDown, Save, X } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -52,7 +52,6 @@ export default function QuotationPage() {
   const handleGeneratePDF = () => {
     const element = document.getElementById("pdf-content");
     if (element) {
-      /*
       html2pdf()
         .set({
           margin: 10,
@@ -62,7 +61,6 @@ export default function QuotationPage() {
         })
         .from(element)
         .save();
-      */
     }
   };
 

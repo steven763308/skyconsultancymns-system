@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-//import html2pdf from "html2pdf.js";
+import html2pdf from "html2pdf.js";
 import DocumentTable from "@/components/DocumentTable"; // ✅ 记得创建这个组件（或复用 Quotation 的）
 import { FileDown, Save, X } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -48,7 +48,6 @@ export default function InvoicePage() {
   const handleGeneratePDF = () => {
     const element = document.getElementById("pdf-content");
     if (element) {
-      /*
       html2pdf()
         .set({
           margin: 10,
@@ -58,7 +57,6 @@ export default function InvoicePage() {
         })
         .from(element)
         .save();
-      */
     }
   };
 
