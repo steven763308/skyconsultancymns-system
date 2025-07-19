@@ -143,24 +143,31 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             )}
             <h1 className="text-xl font-semibold">后台系统</h1>
           </div>
-          <div className="flex items-center gap-2">
-            {/* 🔁 Language Switch Placeholder */}
-            <button className="bg-gray-200 text-sm px-3 py-1 rounded hover:bg-gray-300">
-              中 / EN
-            </button>
-            {/* ✅ 登出 */}
-            <button
-              className="bg-black text-white px-4 py-2 rounded flex items-center gap-2"
-              onClick={() => {
-                document.cookie =
-                  "sky_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-                router.push("/");
-              }}
-            >
-              <LogOut size={16} />
-              <span>登出</span>
-            </button>
-          </div>
+          <div className="flex items-center gap-3">
+  {/* 🌐 语言切换按钮（统一大小 + 黑底白字） */}
+  <button
+    className="flex items-center justify-center w-30 gap-2 px-4 py-2 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition duration-200"
+    onClick={() => {
+      // ✨ TODO: 语言切换逻辑
+    }}
+  >
+    🌐 中 / EN
+  </button>
+
+  {/* 🔒 登出按钮（统一大小 + 红色按钮） */}
+  <button
+    onClick={() => {
+      document.cookie =
+        "sky_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      router.push("/");
+    }}
+    className="flex items-center justify-center w-25 gap-2 px-4 py-2 rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition duration-200"
+  >
+    <LogOut size={16} />
+    <span>登出</span>
+  </button>
+</div>
+
         </header>
 
         {/* 页面内容 */}
