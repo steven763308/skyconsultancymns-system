@@ -14,6 +14,7 @@ import {
   UserCog,
   Bolt,
   Menu,
+  Users,
   BookOpen,
 } from "lucide-react";
 
@@ -58,6 +59,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { label: "Services", href: "/dashboard/service", icon: <Monitor size={18} /> },
     { label: "Accounting", href: "/dashboard/accounting", icon: <BookOpen size={18} /> },
     { label: "Project Management", href: "/dashboard/project", icon: <KanbanSquare size={18} /> },
+    { label: "CRM", href: "/dashboard/crm", icon: <Users size={18} /> },
     { label: "用户管理", href: "/dashboard/user", icon: <UserCog size={18} /> },
     { label: "设定", href: "/dashboard/settings", icon: <Bolt size={18} /> },
   ];
