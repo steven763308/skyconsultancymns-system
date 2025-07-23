@@ -1,82 +1,28 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-interface Client {
-  id: number;
-  name: string;
-  phone: string;
-  company: string;
-  email: string;
-}
-
-export default function CRMPage() {
-  const [clients, setClients] = useState<Client[]>([]);
-
-  useEffect(() => {
-    // 模拟客户数据加载
-    setClients([
-      { id: 1, name: "Lim Ah Seng", phone: "012-3456789", company: "Lim Construction Sdn Bhd", email: "lim@example.com" },
-      { id: 2, name: "Ali Bin Abu", phone: "013-9876543", company: "Ali Renovation Works", email: "ali@example.com" },
-    ]);
-  }, []);
-
+export default function CRMHomePage() {
   return (
     <main className="p-8">
-      {/* 页面标题与简介 */}
-      <h1 className="text-3xl font-bold text-gray-800 mb-5">
-        📇 客户管理系统（CRM）
-      </h1>
-      <p className="text-gray-600 mb-6">
-        Sky Consultancy 客户管理系统。
-      </p>
+      <h1 className="text-3xl font-bold text-gray-800 mb-2">📇 Sky Consultancy CRM 系统</h1>
+      <p className="text-gray-600 mb-8">管理客户、进行市场推广，一站式处理业务相关事务。</p>
 
-      <div className="mb-6 flex justify-between items-center">
-        <Link
-          href="/crm/add"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          ➕ 新增客户
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 卡片 1：Marketing Blasting */}
+        <Link href="/dashboard/crm/marketing">
+          <div className="cursor-pointer rounded-xl border border-gray-200 bg-white p-6 shadow-md hover:shadow-lg transition">
+            <h2 className="text-xl font-semibold text-gray-800 mb-1">📢 Marketing Blasting</h2>
+            <p className="text-gray-600">通过 WhatsApp 和 Email 群发信息给潜在客户。</p>
+          </div>
         </Link>
-      </div>
 
-      <div className="bg-white shadow rounded-lg overflow-hidden">
-        <table className="min-w-full text-sm text-gray-800">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-6 py-3 text-left">客户名称</th>
-              <th className="px-6 py-3 text-left">公司</th>
-              <th className="px-6 py-3 text-left">电话</th>
-              <th className="px-6 py-3 text-left">电邮</th>
-              <th className="px-6 py-3 text-left">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clients.map((client) => (
-              <tr key={client.id} className="border-t">
-                <td className="px-6 py-4">{client.name}</td>
-                <td className="px-6 py-4">{client.company}</td>
-                <td className="px-6 py-4">{client.phone}</td>
-                <td className="px-6 py-4">{client.email}</td>
-                <td className="px-6 py-4">
-                  <Link
-                    href={`/crm/${client.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    查看详情
-                  </Link>
-                </td>
-              </tr>
-            ))}
-            {clients.length === 0 && (
-              <tr>
-                <td colSpan={5} className="text-center py-6 text-gray-500">
-                  暂无客户记录。
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        {/* 卡片 2：客户维护系统 */}
+        <Link href="/dashboard/crm/customer">
+          <div className="cursor-pointer rounded-xl border border-gray-200 bg-white p-6 shadow-md hover:shadow-lg transition">
+            <h2 className="text-xl font-semibold text-gray-800 mb-1">🧑‍💼 客户维护系统</h2>
+            <p className="text-gray-600">查看客户列表，管理客户信息，跟进进度。</p>
+          </div>
+        </Link>
       </div>
     </main>
   );
