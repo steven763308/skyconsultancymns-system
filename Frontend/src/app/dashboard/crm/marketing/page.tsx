@@ -4,6 +4,7 @@ import Link from "next/link";
 import CrmTracking from "@/components/crm/crmTracking";
 import CrmWhatsapp from "@/components/crm/crmWhatsapp";
 import CrmEmail from "@/components/crm/crmEmail";
+import CrmBroadcastTabs from "@/components/crm/crmBroadcastTab";
 
 export default function MarketingBlastingPage() {
   const [selected, setSelected] = useState<"whatsapp" | "email" | null>(null);
@@ -47,6 +48,10 @@ export default function MarketingBlastingPage() {
       {/* 实况追踪区块 */}
       <div className="max-w-6xl mx-auto mb-8">
         <CrmTracking data={sampleData} />
+      </div>
+
+      <div className="max-w-6xl mx-auto mt-8">
+        <CrmBroadcastTabs />
       </div>
 
       {/* 群发卡片区域 */}
