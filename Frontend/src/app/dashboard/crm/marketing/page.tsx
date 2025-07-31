@@ -2,8 +2,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import CrmTracking from "@/components/crm/crmTracking";
-import CrmWhatsapp from "@/components/crm/crmWhatsapp";
-import CrmEmail from "@/components/crm/crmEmail";
 import CrmBroadcastTabs from "@/components/crm/crmBroadcastTab";
 
 export default function MarketingBlastingPage() {
@@ -52,37 +50,6 @@ export default function MarketingBlastingPage() {
 
       <div className="max-w-6xl mx-auto mt-8">
         <CrmBroadcastTabs />
-      </div>
-
-      {/* 群发卡片区域 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-        {/* WhatsApp 卡片 */}
-        <div
-          onMouseEnter={() => setSelected("whatsapp")}
-          onMouseLeave={() => setSelected(null)}
-          className={`transition-all duration-300 ${
-            selected && selected !== "whatsapp" ? "opacity-50 scale-95" : "opacity-100 scale-100"
-          }`}
-        >
-          <CrmWhatsapp
-            selected={selected === "whatsapp"}
-            onSelect={() => setSelected("whatsapp")}
-          />
-        </div>
-
-        {/* Email 卡片 */}
-        <div
-          onMouseEnter={() => setSelected("email")}
-          onMouseLeave={() => setSelected(null)}
-          className={`transition-all duration-300 ${
-            selected && selected !== "email" ? "opacity-50 scale-95" : "opacity-100 scale-100"
-          }`}
-        >
-          <CrmEmail
-            selected={selected === "email"}
-            onSelect={() => setSelected("email")}
-          />
-        </div>
       </div>
     </main>
   );
