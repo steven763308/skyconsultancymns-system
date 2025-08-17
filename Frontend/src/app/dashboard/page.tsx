@@ -42,7 +42,7 @@ export default function DashboardHome() {
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-sm text-gray-500 mb-1">月收入</h2>
-          <p className="text-2xl font-bold text-yellow-600">RM 14,800.00</p>
+          <p className="text-2xl font-bold text-yellow-600">RM 14,800,000.00</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-sm text-gray-500 mb-1">待处理工单</h2>
