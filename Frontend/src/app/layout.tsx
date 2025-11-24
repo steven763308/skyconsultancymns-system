@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sky Consultancy Panel",
+  title: "AP Jobstar Panel",
   description: "Internal system panel",
 };
 

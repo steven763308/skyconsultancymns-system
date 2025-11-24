@@ -1,12 +1,12 @@
 {
   "login": {
     "title": {
-      "zh": "SCMNS 内部系统",
-      "en": "SCMNS Internal System"
+      "zh": "AP Jobstar 内部系统",
+      "en": "AP Jobstar Internal System"
     },
     "subtitle": {
-      "zh": "专注于承包商合规服务的专业伙伴",
-      "en": "Your Trusted Partner in Contractor Compliance"
+      "zh": "专注于合规服务的专业伙伴",
+      "en": "Your Trusted Partner in Compliance"
     },
     "empty": {
       "zh": "请输入账号与密码",

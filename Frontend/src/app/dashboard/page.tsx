@@ -27,7 +27,7 @@ export default function DashboardHome() {
       {/* 标题区 */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">👋 欢迎回来，管理员！</h1>
-        <p className="text-gray-600">以下是您管理 Sky Consultancy 的仪表板总览。</p>
+        <p className="text-gray-600">以下是您管理 AP Jobstar 的仪表板总览。</p>
       </div>
 
       {/* 统计数据卡片 */}
@@ -42,7 +42,7 @@ export default function DashboardHome() {
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-sm text-gray-500 mb-1">月收入</h2>
-          <p className="text-2xl font-bold text-yellow-600">RM 14,800,000.00</p>
+          <p className="text-2xl font-bold text-yellow-600">RM23,650.00</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-sm text-gray-500 mb-1">待处理工单</h2>

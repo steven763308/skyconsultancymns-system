@@ -86,7 +86,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <div className="flex justify-between items-center mb-6">
           {!isCollapsed && !isMobile && (
             <h2 className="text-lg font-bold transition-opacity duration-200">
-              Sky Consultancy
+              AP Jobstar [Panel]
             </h2>
           )}
           {!isMobile && (

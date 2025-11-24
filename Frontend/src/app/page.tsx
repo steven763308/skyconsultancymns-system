@@ -104,7 +104,7 @@ export default function LoginPage() {
           {/* 左侧 Logo */}
           <div className="bg-white flex flex-col items-center justify-center w-1/2 p-10">
             <img
-              src="/image/scmnsLogo.png"
+              src="/image/companyLogoAP.png"
               alt="Sky Consultancy Logo"
               className="h-44 w-44 object-contain rounded-full shadow-md border border-gray-200 mb-4"
             />
